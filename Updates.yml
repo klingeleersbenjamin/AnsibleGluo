@@ -1,0 +1,15 @@
+- hosts: raspberries
+  vars:
+  remote_user: pi
+  tasks:
+  - name: ensure chromium-browser is at the latest version
+    apt: name=chromium-browser state=latest
+    become: true
+    become_method: sudo
+  - name: Update and upgrade apt packages
+    become: true
+    become_method: sudo
+    apt:
+      upgrade: yes
+      update_cache: yes
+      cache_valid_time: 86400 # Update the apt cache if its older than the cache_valid_time. This option is set in seconds.
